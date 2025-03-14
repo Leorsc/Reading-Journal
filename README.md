@@ -5,16 +5,19 @@
 Para executar este projeto:
 
 1. Entre na pasta do projeto no terminal:
-  ```bash
+  ```
   cd caminho/para/seu/projeto
+  ```
 
 2. Rode `npm install` para instalar as dependências do projeto:
-  ```bash
+  ```
   npm install
+  ```
 
 3. E em seguida, `npm run dev`, para iniciar a execução do projeto:
-  ```bash
+  ```
   npm run dev
+  ```
 
 Após a execução do projeto, ele estará disponível no navegador em `http://localhost:3000`.
 
