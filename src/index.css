@@ -1,0 +1,22 @@
+@import "tailwindcss";
+
+@theme {
+  --color-error-message: #E70000;
+  --color-label-form: #344054;
+  --color-input-form: #667085;
+  --color-border-input: #D0D5DD;
+}
+
+
+/* input,
+button,
+textarea {
+  outline: none;
+  padding: 0;
+  margin: 0;
+  font-family: inherit;
+  Mantém a fonte do Tailwind
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+} */
