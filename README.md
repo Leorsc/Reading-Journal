@@ -31,7 +31,7 @@ Os componentes estão no diretório `./src/components` e possuem as seguintes ca
   - **Descrição:** Componente responsável pelo formulário de cadastro de livros. Inclui campos para título, autor, gênero e data, com validação usando `yup` e `react-hook-form`. Após o envio, o livro é adicionado ao contexto e o usuário é redirecionado para a lista de livros.
 
 - **BooksList:**
-  - **Descrição:** Componente que exibe a lista de livros em uma tabela. Cada linha inclui botões para editar (ícone `NotebookPen`) e excluir (ícone `Trash`) um livro. A data é formatada para `DD/MM/YYYY` ao ser exibida. Também inclui um botão para redirecionar à página de cadastro.
+  - **Descrição:** Componente que exibe a lista de livros em uma tabela. Cada linha inclui botões para editar (ícone `NotebookPen`) e excluir (ícone `Trash`) um livro. A data é formatada para `DD/MM/YYYY` ao ser exibida. Inclui um campo de busca com um ícone (`Search`) que permite filtrar os livros por título, autor, gênero ou data, e um seletor (`<select>`) para escolher o critério de busca (Título, Autor, Gênero, Data ou Todos os campos). Também possui um botão para redirecionar à página de cadastro.
 
 - **InputForm:**
   - **Props:**
