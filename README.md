@@ -90,4 +90,4 @@ Este projeto atende aos requisitos da Fase 1, implementando um sistema básico d
 
 ## Observação
 Este projeto foi deployado e está disponível para acesso online. Você pode visualizar a aplicação em funcionamento através do seguinte link:  
-[https://seu-link-de-deploy-aqui](https://seu-link-de-deploy-aqui)
+[https://reading-journal-zeta.vercel.app/](https://reading-journal-zeta.vercel.app/)
