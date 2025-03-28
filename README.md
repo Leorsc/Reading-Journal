@@ -27,8 +27,37 @@ Este projeto é a Fase 1 de um sistema de gerenciamento de livros, desenvolvido 
 ## Componentes
 Os componentes estão no diretório `./src/components` e possuem as seguintes características:
 
-- **BookForm:**
+## Screenshots
+
+Abaixo estão algumas capturas de tela da aplicação, mostrando as principais funcionalidades:
+
+### Lista de Livros
+![Lista de Livros com Busca e Seletor](screenshots/books-list.png)
+Esta é a página principal, onde os livros são listados. Inclui um campo de busca com seletor para filtrar por título, autor, gênero, data ou todos os campos.
+
+### Formulário de Cadastro
+![Formulário de Cadastro](screenshots/book-form.png)
+Página de cadastro de novos livros, com campos para título, autor, gênero e data.
+
+### validação do Formulário de Cadastro
+![Validação do Formulário de Cadastro](screenshots/validation-book-form.png)
+Validação do formulário de cadastro dos livros
+
+### Edição de Livro
+![Edição de Livro](screenshots/edit-book.png)
+Página de edição, onde os dados de um livro existente podem ser alterados.
+
+### Página de Erro
+![Página de Erro](screenshots/not-found.png)
+Página exibida quando uma URL inválida é acessada, como um ID de livro inexistente.
+
+### Barra de Navegação
+![Barra de Navegação](screenshots/navbar.png)
+Barra de navegação com links para as principais páginas da aplicação.
+
+**BookForm:**
   - **Descrição:** Componente responsável pelo formulário de cadastro de livros. Inclui campos para título, autor, gênero e data, com validação usando `yup` e `react-hook-form`. Após o envio, o livro é adicionado ao contexto e o usuário é redirecionado para a lista de livros.
+
 
 - **BooksList:**
   - **Descrição:** Componente que exibe a lista de livros em uma tabela. Cada linha inclui botões para editar (ícone `NotebookPen`) e excluir (ícone `Trash`) um livro. A data é formatada para `DD/MM/YYYY` ao ser exibida. Inclui um campo de busca com um ícone (`Search`) que permite filtrar os livros por título, autor, gênero ou data, e um seletor (`<select>`) para escolher o critério de busca (Título, Autor, Gênero, Data ou Todos os campos). Também possui um botão para redirecionar à página de cadastro.
