@@ -33,27 +33,33 @@ Abaixo estão algumas capturas de tela da aplicação, mostrando as principais f
 
 ### Lista de Livros
 ![Lista de Livros com Busca e Seletor](screenshots/books-list.png)
-Esta é a página principal, onde os livros são listados. Inclui um campo de busca com seletor para filtrar por título, autor, gênero, data ou todos os campos.
+
+- Esta é a página principal, onde os livros são listados. Inclui um campo de busca com seletor para filtrar por título, autor, gênero, data ou todos os campos.
 
 ### Formulário de Cadastro
 ![Formulário de Cadastro](screenshots/book-form.png)
-Página de cadastro de novos livros, com campos para título, autor, gênero e data.
+
+- Página de cadastro de novos livros, com campos para título, autor, gênero e data.
 
 ### validação do Formulário de Cadastro
 ![Validação do Formulário de Cadastro](screenshots/validation-book-form.png)
-Validação do formulário de cadastro dos livros
+
+- Validação do formulário de cadastro dos livros
 
 ### Edição de Livro
 ![Edição de Livro](screenshots/edit-book.png)
-Página de edição, onde os dados de um livro existente podem ser alterados.
+
+- Página de edição, onde os dados de um livro existente podem ser alterados.
 
 ### Página de Erro
 ![Página de Erro](screenshots/not-found.png)
-Página exibida quando uma URL inválida é acessada, como um ID de livro inexistente.
+
+- Página exibida quando uma URL inválida é acessada, como um ID de livro inexistente.
 
 ### Barra de Navegação
 ![Barra de Navegação](screenshots/navbar.png)
-Barra de navegação com links para as principais páginas da aplicação.
+
+- Barra de navegação com links para as principais páginas da aplicação.
 
 **BookForm:**
   - **Descrição:** Componente responsável pelo formulário de cadastro de livros. Inclui campos para título, autor, gênero e data, com validação usando `yup` e `react-hook-form`. Após o envio, o livro é adicionado ao contexto e o usuário é redirecionado para a lista de livros.
