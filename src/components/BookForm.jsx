@@ -3,11 +3,10 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate } from 'react-router-dom';
 import InputForm from './InputForm';
 import { registerBookValidationSchema } from '../utils/yupValidations/registerBookValidation';
-import useBooks from '../hooks/useBooks';
+import api from '../services/api';
 
 export default function BookForm() {
   const navigate = useNavigate();
-  const { createBook } = useBooks();
 
   const {
     register,
@@ -18,18 +17,30 @@ export default function BookForm() {
     resolver: yupResolver(registerBookValidationSchema),
   });
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     try {
-      createBook(data);
+      const bookData = {
+        title: data.title,
+        author: data.author,
+        genre: data.genre,
+        readAt: data.readAt,
+      };
+
+      await api.post('/books', bookData);
+
       reset();
       navigate('/books');
     } catch (error) {
       console.error('Erro ao cadastrar livro:', error);
+      alert('Erro ao cadastrar livro. Tente novamente.');
     }
   };
 
   return (
-    <form className="flex flex-col gap-6 w-96" onSubmit={handleSubmit(onSubmit)}>
+    <form
+      className="flex flex-col gap-6 w-96 p-8 rounded-2xl bg-zinc-100 border border-border-input border-solid"
+      onSubmit={handleSubmit(onSubmit)}
+    >
       <div className="flex flex-col gap-2 w-full">
         <InputForm
           className=""
@@ -73,19 +84,19 @@ export default function BookForm() {
         <InputForm
           className=""
           title={'Data'}
-          name={'date'}
-          errors={errors.date}
+          name={'readAt'}
+          errors={errors.readAt}
         >
           <input
             className="w-full text-base text-input-form outline-none"
             type="date"
-            {...register('date')}
+            {...register('readAt')}
             placeholder=""
           />
         </InputForm>
       </div>
       <button
-        className="h-12 bg-border-input border-label-form border border-solid rounded-lg cursor-pointer text-xl hover:scale-102"
+        className="h-12 bg-border-input text-input-form border-label-form border border-solid rounded-lg cursor-pointer text-xl hover:scale-102"
       >
         Adicionar
       </button>

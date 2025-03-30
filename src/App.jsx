@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
-import { BookProvider } from './context/BookContext';
-import Home from './pages/Home';
+import { BookProvider } from './context/BookContext.jsx';
+import Home from './pages/Home.jsx';
 import NotFound from './pages/NotFound.jsx';
 import Register from './pages/Register.jsx';
 import About from './pages/About.jsx';

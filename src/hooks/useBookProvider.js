@@ -36,25 +36,6 @@ function reducer(state, action) {
   }
 }
 
-const pages = [
-  {
-    name: "Página Inicial",
-    path: "/"
-  },
-  {
-    name: "Sobre",
-    path: "/about"
-  },
-  {
-    name: "Cadastrar",
-    path: "/register"
-  },
-  {
-    name: "Livros",
-    path: "/books"
-  },
-]
-
 function useBookProvider() {
   const [state, dispatch] = useReducer(reducer, initialState);
 
@@ -72,7 +53,6 @@ function useBookProvider() {
 
   return {
     books: state.books,
-    pages,
     createBook,
     deleteBook,
     updateBook,

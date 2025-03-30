@@ -1,16 +1,14 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate } from 'react-router-dom';
 import InputForm from '../components/InputForm';
 import { registerBookValidationSchema } from '../utils/yupValidations/registerBookValidation';
-import useBooks from '../hooks/useBooks';
+import api from '../services/api';
 
 export default function EditBookForm({ id }) {
   const navigate = useNavigate();
-  const { books, updateBook } = useBooks();
-
-  const book = books.find((b) => b.id === parseInt(id));
+  const [book, setBook] = useState(null);
 
   const {
     register,
@@ -21,28 +19,59 @@ export default function EditBookForm({ id }) {
     resolver: yupResolver(registerBookValidationSchema),
   });
 
+
+  const fetchBook = async () => {
+    try {
+      const response = await api.get(`/books/${id}`);
+      setBook(response.data);
+    } catch (error) {
+      console.error('Erro ao buscar livro:', error);
+      navigate('/books');
+    }
+  };
+
+  useEffect(() => {
+    fetchBook();
+  }, [id]);
+
   useEffect(() => {
     if (book) {
       setValue('title', book.title);
       setValue('author', book.author);
       setValue('genre', book.genre);
-      setValue('date', book.date);
-    } else {
-      navigate('/books');
+      setValue('readAt', book.readAt);
     }
-  }, [book, setValue, navigate]);
+  }, [book, setValue]);
 
-  const onSubmit = (data) => {
+
+  const onSubmit = async (data) => {
     try {
-      updateBook(book.id, data);
+      const updatedBook = {
+        id: parseInt(id),
+        title: data.title,
+        author: data.author,
+        genre: data.genre,
+        readAt: data.readAt,
+      };
+
+      await api.put('/books', updatedBook);
+
       navigate('/books');
     } catch (error) {
       console.error('Erro ao editar livro:', error);
+      alert('Erro ao editar livro. Tente novamente.');
     }
   };
 
+  if (!book) {
+    return null;
+  }
+
   return (
-    <form className="flex flex-col gap-6 w-96" onSubmit={handleSubmit(onSubmit)}>
+    <form
+      className="flex flex-col gap-6 w-96 p-8 rounded-2xl bg-zinc-100 border border-border-input border-solid"
+      onSubmit={handleSubmit(onSubmit)}
+    >
       <div className="flex flex-col gap-2 w-full">
         <InputForm
           className=""
@@ -85,23 +114,23 @@ export default function EditBookForm({ id }) {
         </InputForm>
         <InputForm
           className=""
-          title={'Data'}
-          name={'date'}
-          errors={errors.date}
+          title={'Lido em'}
+          name={'readAt'}
+          errors={errors.readAt}
         >
           <input
             className="w-full text-base text-input-form outline-none"
             type="date"
-            {...register('date')}
+            {...register('readAt')}
             placeholder=""
           />
         </InputForm>
       </div>
       <button
-        className="h-12 bg-border-input border-label-form border border-solid rounded-lg cursor-pointer text-xl hover:scale-102"
+        className="h-12 bg-border-input text-input-form border-label-form border border-solid rounded-lg cursor-pointer text-xl hover:scale-102"
       >
         Salvar
       </button>
     </form>
-  )
+  );
 }
