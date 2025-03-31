@@ -2,36 +2,24 @@ import { useEffect, useState } from 'react';
 import { BookX, NotebookPen, Search, SearchX, Trash, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import handleDateFormat from '../functions/formatDate';
-import api from '../services/api';
+import useBooks from '../hooks/useBooks';
+import Notification from '../components/Notification';
 
 export default function BooksList() {
-  const [books, setBooks] = useState([]);
+  const { books, deleteBook, fetchBooks, notification } = useBooks();
   const [searchTerm, setSearchTerm] = useState('');
   const [searchCriteria, setSearchCriteria] = useState('all');
   const [currentPage, setCurrentPage] = useState(1);
   const booksPerPage = 4;
   const navigate = useNavigate();
 
-
-  const fetchBooks = async () => {
-    try {
-      const response = await api.get('/books');
-      setBooks(response.data);
-    } catch (error) {
-      console.error('Erro ao buscar livros:', error);
-      setBooks([]);
-    }
-  };
-
   useEffect(() => {
     fetchBooks();
   }, []);
 
-  const deleteBook = async (id) => {
+  const handleDeleteBook = async (id) => {
     try {
-      await api.delete(`/books/${id}`);
-
-      setBooks(books.filter((book) => book.id !== id));
+      await deleteBook(id);
     } catch (error) {
       console.error('Erro ao deletar livro:', error);
     }
@@ -55,7 +43,7 @@ export default function BooksList() {
       case 'genre':
         return book.genre.toLowerCase().includes(searchTerm.toLowerCase());
       case 'date':
-        return handleDateFormat(book.readAt).includes(searchTerm); // Ajustado para readAt
+        return handleDateFormat(book.readAt).includes(searchTerm);
       case 'all':
       default:
         return [book.title, book.author, book.genre, handleDateFormat(book.readAt)].some((field) =>
@@ -67,7 +55,6 @@ export default function BooksList() {
   const indexOfLastBook = currentPage * booksPerPage;
   const indexOfFirstBook = indexOfLastBook - booksPerPage;
   const currentBooks = filteredBooks.slice(indexOfFirstBook, indexOfLastBook);
-
   const totalPages = Math.ceil(filteredBooks.length / booksPerPage);
 
   useEffect(() => {
@@ -166,7 +153,9 @@ export default function BooksList() {
                 <div className="flex flex-col gap-2 text-left w-4/5 p-2">
                   <div className="flex justify-between">
                     <span className="font-semibold">Título:</span>
-                    <span className="max-w-[250px] truncate" title={book.title}>{book.title}</span>
+                    <span className="max-w-[250px] truncate" title={book.title}>
+                      {book.title}
+                    </span>
                   </div>
                   <div className="flex justify-between">
                     <span className="font-semibold">Autor(a):</span>
@@ -190,7 +179,7 @@ export default function BooksList() {
                   <Trash
                     className="cursor-pointer hover:scale-110 text-red-500"
                     size={20}
-                    onClick={() => deleteBook(book.id)}
+                    onClick={() => handleDeleteBook(book.id)}
                   />
                 </div>
               </div>
@@ -218,6 +207,10 @@ export default function BooksList() {
             Página {currentPage} de {totalPages}
           </span>
         </div>
+      )}
+
+      {notification && (
+        <Notification type={notification.type} message={notification.message} />
       )}
     </div>
   );

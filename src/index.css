@@ -7,6 +7,47 @@
   --color-border-input: #D0D5DD;
 }
 
+@layer components {
+  .notification-create {
+    @apply fixed bottom-5 right-0 bg-green-500 text-white p-4 rounded-l-lg shadow-lg;
+    animation: slide-in 0.5s ease-out forwards, slide-out 0.5s ease-out 2.5s forwards;
+  }
+
+  .notification-update {
+    @apply fixed bottom-5 right-0 bg-blue-500 text-white p-4 rounded-l-lg shadow-lg;
+    animation: slide-in 0.5s ease-out forwards, slide-out 0.5s ease-out 2.5s forwards;
+  }
+
+  .notification-delete {
+    @apply fixed bottom-5 right-0 bg-red-500 text-white p-4 rounded-l-lg shadow-lg;
+    animation: slide-in 0.5s ease-out forwards, slide-out 0.5s ease-out 2.5s forwards;
+  }
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-out {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
 
 /* input,
 button,

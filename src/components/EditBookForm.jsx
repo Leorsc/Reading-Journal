@@ -4,9 +4,10 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate } from 'react-router-dom';
 import InputForm from '../components/InputForm';
 import { registerBookValidationSchema } from '../utils/yupValidations/registerBookValidation';
-import api from '../services/api';
+import useBooks from '../hooks/useBooks';
 
 export default function EditBookForm({ id }) {
+  const { fetchBook, updateBook } = useBooks();
   const navigate = useNavigate();
   const [book, setBook] = useState(null);
 
@@ -20,10 +21,10 @@ export default function EditBookForm({ id }) {
   });
 
 
-  const fetchBook = async () => {
+  const loadBook = async () => {
     try {
-      const response = await api.get(`/books/${id}`);
-      setBook(response.data);
+      const fetchedBook = await fetchBook(id);
+      setBook(fetchedBook);
     } catch (error) {
       console.error('Erro ao buscar livro:', error);
       navigate('/books');
@@ -31,7 +32,7 @@ export default function EditBookForm({ id }) {
   };
 
   useEffect(() => {
-    fetchBook();
+    loadBook();
   }, [id]);
 
   useEffect(() => {
@@ -43,19 +44,14 @@ export default function EditBookForm({ id }) {
     }
   }, [book, setValue]);
 
-
   const onSubmit = async (data) => {
     try {
-      const updatedBook = {
-        id: parseInt(id),
+      await updateBook(id, {
         title: data.title,
         author: data.author,
         genre: data.genre,
         readAt: data.readAt,
-      };
-
-      await api.put('/books', updatedBook);
-
+      });
       navigate('/books');
     } catch (error) {
       console.error('Erro ao editar livro:', error);
@@ -73,12 +69,7 @@ export default function EditBookForm({ id }) {
       onSubmit={handleSubmit(onSubmit)}
     >
       <div className="flex flex-col gap-2 w-full">
-        <InputForm
-          className=""
-          title={'Título'}
-          name={'title'}
-          errors={errors.title}
-        >
+        <InputForm className="" title={'Título'} name={'title'} errors={errors.title}>
           <input
             className="w-full text-base text-input-form outline-none"
             type="text"
@@ -86,12 +77,7 @@ export default function EditBookForm({ id }) {
             placeholder=""
           />
         </InputForm>
-        <InputForm
-          className=""
-          title={'Autor(a)'}
-          name={'author'}
-          errors={errors.author}
-        >
+        <InputForm className="" title={'Autor(a)'} name={'author'} errors={errors.author}>
           <input
             className="w-full text-base text-input-form outline-none"
             type="text"
@@ -99,12 +85,7 @@ export default function EditBookForm({ id }) {
             placeholder=""
           />
         </InputForm>
-        <InputForm
-          className=""
-          title={'Gênero'}
-          name={'genre'}
-          errors={errors.genre}
-        >
+        <InputForm className="" title={'Gênero'} name={'genre'} errors={errors.genre}>
           <input
             className="w-full text-base text-input-form outline-none"
             type="text"
@@ -112,12 +93,7 @@ export default function EditBookForm({ id }) {
             placeholder=""
           />
         </InputForm>
-        <InputForm
-          className=""
-          title={'Lido em'}
-          name={'readAt'}
-          errors={errors.readAt}
-        >
+        <InputForm className="" title={'Lido em'} name={'readAt'} errors={errors.readAt}>
           <input
             className="w-full text-base text-input-form outline-none"
             type="date"

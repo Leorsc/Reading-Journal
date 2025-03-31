@@ -3,9 +3,10 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate } from 'react-router-dom';
 import InputForm from './InputForm';
 import { registerBookValidationSchema } from '../utils/yupValidations/registerBookValidation';
-import api from '../services/api';
+import useBooks from '../hooks/useBooks';
 
 export default function BookForm() {
+  const { createBook } = useBooks();
   const navigate = useNavigate();
 
   const {
@@ -19,20 +20,16 @@ export default function BookForm() {
 
   const onSubmit = async (data) => {
     try {
-      const bookData = {
+      await createBook({
         title: data.title,
         author: data.author,
         genre: data.genre,
         readAt: data.readAt,
-      };
-
-      await api.post('/books', bookData);
-
+      });
       reset();
       navigate('/books');
     } catch (error) {
       console.error('Erro ao cadastrar livro:', error);
-      alert('Erro ao cadastrar livro. Tente novamente.');
     }
   };
 
@@ -42,12 +39,7 @@ export default function BookForm() {
       onSubmit={handleSubmit(onSubmit)}
     >
       <div className="flex flex-col gap-2 w-full">
-        <InputForm
-          className=""
-          title={'Título'}
-          name={'title'}
-          errors={errors.title}
-        >
+        <InputForm className="" title={'Título'} name={'title'} errors={errors.title}>
           <input
             className="w-full text-base text-input-form outline-none"
             type="text"
@@ -55,12 +47,7 @@ export default function BookForm() {
             placeholder=""
           />
         </InputForm>
-        <InputForm
-          className=""
-          title={'Autor(a)'}
-          name={'author'}
-          errors={errors.author}
-        >
+        <InputForm className="" title={'Autor(a)'} name={'author'} errors={errors.author}>
           <input
             className="w-full text-base text-input-form outline-none"
             type="text"
@@ -68,12 +55,7 @@ export default function BookForm() {
             placeholder=""
           />
         </InputForm>
-        <InputForm
-          className=""
-          title={'Gênero'}
-          name={'genre'}
-          errors={errors.genre}
-        >
+        <InputForm className="" title={'Gênero'} name={'genre'} errors={errors.genre}>
           <input
             className="w-full text-base text-input-form outline-none"
             type="text"
@@ -81,12 +63,7 @@ export default function BookForm() {
             placeholder=""
           />
         </InputForm>
-        <InputForm
-          className=""
-          title={'Data'}
-          name={'readAt'}
-          errors={errors.readAt}
-        >
+        <InputForm className="" title={'Data'} name={'readAt'} errors={errors.readAt}>
           <input
             className="w-full text-base text-input-form outline-none"
             type="date"
