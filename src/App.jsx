@@ -17,7 +17,7 @@ export default function App() {
         <Route path='/' element={<Home />} />
         <Route path='/books' element={<Books />} />
         <Route path='/about' element={<About />} />
-        <Route path="/edit/:id" element={<EditBook />} />
+        <Route path='/edit/:id' element={<EditBook />} />
 
         <Route path='*' element={<NotFound />} />
       </Routes >

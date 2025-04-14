@@ -120,6 +120,45 @@ Os seguintes hooks estão no diretório `./src/hooks`:
 - **useBooks:**
   - **Descrição:** Hook que fornece acesso ao estado e às ações do contexto (`books`, `createBook`, `updateBook`, `deleteBook`).
 
+## Testes
+
+Este projeto inclui uma suíte de testes unitários para garantir a funcionalidade e a robustez dos principais componentes e hooks. Os testes foram implementados usando **Jest** e **React Testing Library**, com mocks para dependências como `react-router-dom` e serviços de API. A cobertura abrange:
+
+- **Componentes**:
+  - **`BookForm`**: Verifica a renderização do formulário de cadastro, preenchimento e submissão de novos livros, além da navegação para a lista de livros após o sucesso.
+  - **`BooksList`**: Garante que a lista de livros é renderizada corretamente com os dados fornecidos.
+  - **`EditBookForm`**: Testa a renderização do formulário de edição com dados pré-preenchidos, a submissão de atualizações e o redirecionamento em caso de livro não encontrado.
+  - **`NavBar`**: Valida a renderização dos links de navegação, a aplicação de estilos condicionais para links ativos/inativos e a exibição condicional do logo com base na página atual.
+
+- **Hooks**:
+  - **`useBookProvider`**: Testa a recuperação inicial de livros, criação, atualização e exclusão de livros, além do manejo de notificações e erros de API.
+
+### Executando os Testes
+
+Para rodar os testes, siga os passos abaixo:
+
+1. Certifique-se de que as dependências estão instaladas:
+```
+npm install
+```
+2. Execute a suíte de testes com:
+```
+npm test
+```
+
+Os testes são executados no modo interativo do Jest, mostrando o progresso e os resultados detalhados. Atualmente, a suíte inclui **17 testes** que cobrem as funcionalidades críticas da aplicação.
+
+### Configuração
+
+Os testes utilizam mocks para isolar dependências externas, como:
+- **`react-router-dom`**: Mocks para `useNavigate`, `useLocation` e `useParams` garantem que a navegação e o roteamento sejam testados sem dependências reais.
+- **Imagens**: O logo da `NavBar` é mockado para evitar erros de importação de arquivos estáticos.
+- **API**: O módulo `api` é mockado para simular respostas de endpoints sem chamadas reais à rede.
+
+Os testes também fazem uso de `MemoryRouter` para simular o roteamento do React Router e `jest.useFakeTimers` para controlar temporizadores em notificações.
+
+Essa abordagem garante que os componentes e hooks sejam testados de forma isolada, confiável e repetível.
+
 ## Conclusão
 Este projeto atende aos requisitos da Fase 1, implementando um sistema básico de gerenciamento de livros com cadastro, edição e exclusão. A escolha de armazenar a data como `YYYY-MM-DD` foi feita para seguir o padrão ISO 8601, enquanto a exibição em `DD/MM/YYYY` melhora a legibilidade para o público brasileiro. A página de edição foi protegida contra acesso direto, redirecionando para `/not-found` em caso de ID inválido. Algumas melhorias futuras incluem a adição de uma funcionalidade de busca e a migração para persistência permanente com um backend.
 

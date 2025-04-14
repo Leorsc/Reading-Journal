@@ -120,6 +120,7 @@ export default function BooksList() {
         <button
           onClick={goToPreviousPage}
           disabled={currentPage === 1}
+          data-testid="chevron-left"
           className={`absolute left-[-70px] top-1/2 transform -translate-y-1/2 p-3 rounded-full border border-border-input ${currentPage === 1
             ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
             : 'bg-zinc-100 text-gray-700 cursor-pointer hover:bg-gray-200 hover:scale-105 transition-transform'
@@ -172,11 +173,13 @@ export default function BooksList() {
                 </div>
                 <div className="absolute top-4 right-4 flex flex-col gap-2">
                   <NotebookPen
+                    data-testid="notebook-pen-icon"
                     className="cursor-pointer hover:scale-110 text-blue-500"
                     size={20}
                     onClick={() => handleEditBook(book.id)}
                   />
                   <Trash
+                    data-testid="trash-icon"
                     className="cursor-pointer hover:scale-110 text-red-500"
                     size={20}
                     onClick={() => handleDeleteBook(book.id)}
@@ -192,6 +195,7 @@ export default function BooksList() {
         <button
           onClick={goToNextPage}
           disabled={currentPage === totalPages}
+          data-testid="chevron-right"
           className={`absolute right-[-70px] top-1/2 transform -translate-y-1/2 p-3 rounded-full border border-border-input ${currentPage === totalPages
             ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
             : 'bg-zinc-100 text-gray-700 cursor-pointer hover:bg-gray-200 hover:scale-105 transition-transform'
